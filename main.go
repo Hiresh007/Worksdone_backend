@@ -12,17 +12,19 @@ import (
 func main() {
 	gin.SetMode(gin.ReleaseMode)
 
-	port := os.Getenv("PORT")
-
-	if port == "" {
-		port = "10000"
-	}
 	router := gin.Default()
 	router.Use(gin.Logger())
 	router.Use(CORSMiddleware())
 	routes.AuthRoutes(router)
 	routes.DataRoutes(router)
 	router.GET("/working", working)
+
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "10000"
+	}
+
 	if err := router.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)
 	}
