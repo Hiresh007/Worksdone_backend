@@ -7,12 +7,11 @@ import sys
 from dotenv import load_dotenv
 load_dotenv()
 
-yt_api_key = os.environ.get("YT_API_KEY")  # Replace 'YT_API_KEY' with your actual environment variable name
-huggingface_user = os.environ.get("HUGGINGFACE_USER")  # Replace 'HUGGINGFACE_USER' with the correct name
-huggingface_pwd = os.environ.get("HUGGINGFACE_PWD")
+yt_api_key = os.getenv("YT_API_KEY")  # Replace 'YT_API_KEY' with your actual environment variable name
+huggingface_user = os.getenv("HUGGINGFACE_USER")  # Replace 'HUGGINGFACE_USER' with the correct name
+huggingface_pwd = os.getenv("HUGGINGFACE_PWD")
 video_url = sys.argv[1]
 video_id = video_url.split("v=")[1]
-
 youtube = build('youtube','v3',developerKey=yt_api_key)
 captions = youtube.captions().list(part='snippet',videoId=video_id).execute()
 caption = captions['items'][0]['id']
