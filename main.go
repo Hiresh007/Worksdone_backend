@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 	"server/routes"
 
 	"github.com/gin-gonic/gin"
@@ -11,10 +10,7 @@ import (
 
 func main() {
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8000"
-	}
+	port := "3000"
 	router := gin.Default()
 	router.Use(gin.Logger())
 	router.Use(CORSMiddleware())
