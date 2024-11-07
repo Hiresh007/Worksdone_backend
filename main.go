@@ -3,14 +3,24 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"server/routes"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("Error loading .env file")
+	}
+	port := os.Getenv("PORT")
 
-	port := "3000"
+	if port == "" {
+		port = "8000"
+	}
 	router := gin.Default()
 	router.Use(gin.Logger())
 	router.Use(CORSMiddleware())
